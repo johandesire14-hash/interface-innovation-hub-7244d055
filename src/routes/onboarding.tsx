@@ -91,7 +91,16 @@ function OnboardingRoute() {
           <span>{step === 2 ? "Retour" : "Accueil"}</span>
         </button>
         <AfhubLogo />
-        <span className="text-xs font-medium text-[#9ba3aa]">Étape {step} / 2</span>
+        <div className="flex items-center gap-3">
+          <span className="text-xs font-medium text-[#9ba3aa]">Étape {step} / 2</span>
+          <button
+            type="button"
+            onClick={() => void navigate({ to: "/login", search: { mode: "signup" } })}
+            className="rounded-full border border-white/15 px-3.5 py-1.5 text-xs font-semibold text-[#9ba3aa] transition-colors hover:border-white/30 hover:text-[#f2f4f5]"
+          >
+            Ignorer
+          </button>
+        </div>
       </header>
 
       <main className="flex-1 flex items-center justify-center px-4 sm:px-6 pt-10 pb-44">
