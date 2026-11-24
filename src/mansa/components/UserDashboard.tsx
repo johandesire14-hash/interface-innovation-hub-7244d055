@@ -728,7 +728,7 @@ export const CreatorCoursesWorkspace: React.FC<{
           onClick={onBack}
           className="rounded-lg border border-white/10 px-3 py-2 text-xs text-zinc-300"
         >
-          Retour aux applications
+          Retour à l'accueil
         </button>
       </div>
       {isLoadingCourses ? (
@@ -4118,7 +4118,10 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
                         companyId={activeCompany.id}
                         productIds={creatorAppWorkflow.productIds}
                         products={contextProducts}
-                        onBack={() => setCreatorAppWorkflow(null)}
+                        onBack={() => {
+                          setCreatorAppWorkflow(null);
+                          switchTab("accueil");
+                        }}
                       />
                     ) : (
                       <FilesWorkspace
@@ -4127,7 +4130,10 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
                         companyId={activeCompany.id}
                         productIds={creatorAppWorkflow.productIds}
                         products={contextProducts}
-                        onBack={() => setCreatorAppWorkflow(null)}
+                        onBack={() => {
+                          setCreatorAppWorkflow(null);
+                          switchTab("accueil");
+                        }}
                       />
                     )
                   ) : (

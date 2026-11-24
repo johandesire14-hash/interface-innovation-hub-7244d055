@@ -152,7 +152,7 @@ describe("navigation catalogue Apps Store vers les workspaces créateur", () => 
     expect(onOpenFilesWorkflow).not.toHaveBeenCalled();
   });
 
-  it("revient du formulaire Fichiers au catalogue via le callback parent", () => {
+  it("revient du formulaire Fichiers à l'accueil via le callback parent", () => {
     const onBack = vi.fn();
     render(
       <FilesWorkspace
@@ -167,7 +167,7 @@ describe("navigation catalogue Apps Store vers les workspaces créateur", () => 
     fireEvent.click(screen.getByRole("button", { name: "Ajouter un fichier" }));
     expect(screen.getByRole("heading", { name: "Ajouter un fichier" })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Retour aux fichiers" }));
-    fireEvent.click(screen.getByRole("button", { name: "Retour aux applications" }));
+    fireEvent.click(screen.getByRole("button", { name: "Retour à l'accueil" }));
 
     expect(onBack).toHaveBeenCalledOnce();
   });
@@ -221,6 +221,10 @@ describe("navigation catalogue Apps Store vers les workspaces créateur", () => 
       />,
     );
     expect(screen.getByRole("heading", { name: "Fichiers du produit" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Retour à l'accueil" })).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Retour aux applications" }),
+    ).not.toBeInTheDocument();
     filesScreen.unmount();
 
     render(
@@ -233,6 +237,10 @@ describe("navigation catalogue Apps Store vers les workspaces créateur", () => 
       />,
     );
     expect(await screen.findByRole("heading", { name: "Cours & Formations" })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: "Retour à l'accueil" })).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Retour aux applications" }),
+    ).not.toBeInTheDocument();
     fireEvent.click(await screen.findByRole("button", { name: /Ajouter un cours/ }));
     expect(screen.getByRole("heading", { name: "Créer un cours" })).toBeInTheDocument();
     expect(screen.getByLabelText("Nom du cours")).toBeInTheDocument();

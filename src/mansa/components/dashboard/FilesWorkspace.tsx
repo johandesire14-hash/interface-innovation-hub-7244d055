@@ -341,7 +341,7 @@ export const FilesWorkspace: React.FC<FilesWorkspaceProps> = ({
           onClick={onBack}
           className="inline-flex items-center gap-2 text-sm font-semibold text-zinc-300 transition-colors hover:text-white"
         >
-          <ChevronLeft className="size-5" /> Retour aux applications
+          <ChevronLeft className="size-5" /> Retour à l'accueil
         </button>
         <span className="rounded-lg bg-blue-500/10 px-3 py-1.5 text-[11px] font-semibold text-blue-300">
           Fichiers
