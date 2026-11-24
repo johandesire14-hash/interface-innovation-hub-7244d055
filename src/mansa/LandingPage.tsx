@@ -27,7 +27,7 @@ export default function LandingPage() {
         state: (previous) => ({ ...previous, openStudio: true, category }),
       });
     } else {
-      void navigate({ to: "/login", search: { mode: "signup" } });
+      void navigate({ to: "/onboarding" });
     }
   };
 

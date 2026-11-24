@@ -15,6 +15,7 @@ import { Route as CguRouteImport } from './routes/cgu'
 import { Route as DocumentationRouteImport } from './routes/documentation'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as AffiliateCodeRouteImport } from './routes/affiliate.$code'
 
@@ -48,6 +49,11 @@ const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
   path: '/mentions-legales',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/documentation': typeof DocumentationRoute
   '/login': typeof LoginRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/onboarding': typeof OnboardingRoute
   '/privacy': typeof PrivacyRoute
   '/affiliate/$code': typeof AffiliateCodeRoute
 }
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/documentation': typeof DocumentationRoute
   '/login': typeof LoginRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/onboarding': typeof OnboardingRoute
   '/privacy': typeof PrivacyRoute
   '/affiliate/$code': typeof AffiliateCodeRoute
 }
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/documentation': typeof DocumentationRoute
   '/login': typeof LoginRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/onboarding': typeof OnboardingRoute
   '/privacy': typeof PrivacyRoute
   '/affiliate/$code': typeof AffiliateCodeRoute
 }
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/documentation'
     | '/login'
     | '/mentions-legales'
+    | '/onboarding'
     | '/privacy'
     | '/affiliate/$code'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/documentation'
     | '/login'
     | '/mentions-legales'
+    | '/onboarding'
     | '/privacy'
     | '/affiliate/$code'
   id:
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/documentation'
     | '/login'
     | '/mentions-legales'
+    | '/onboarding'
     | '/privacy'
     | '/affiliate/$code'
   fileRoutesById: FileRoutesById
@@ -130,6 +142,7 @@ export interface RootRouteChildren {
   DocumentationRoute: typeof DocumentationRoute
   LoginRoute: typeof LoginRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
+  OnboardingRoute: typeof OnboardingRoute
   PrivacyRoute: typeof PrivacyRoute
   AffiliateCodeRoute: typeof AffiliateCodeRoute
 }
@@ -178,6 +191,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MentionsLegalesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
@@ -202,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   DocumentationRoute: DocumentationRoute,
   LoginRoute: LoginRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
+  OnboardingRoute: OnboardingRoute,
   PrivacyRoute: PrivacyRoute,
   AffiliateCodeRoute: AffiliateCodeRoute,
 }
