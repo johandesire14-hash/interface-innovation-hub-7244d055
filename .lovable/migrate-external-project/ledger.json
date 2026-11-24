@@ -1,0 +1,41 @@
+{
+  "source": "github",
+  "repository": "https://github.com/johandesire14-hash/interface-innovation-hub-38f53e78.git",
+  "capabilities": [
+    {
+      "capability": "code",
+      "source": "github",
+      "outcome": "migrate",
+      "status": "completed",
+      "next_action": "None"
+    },
+    {
+      "capability": "schema",
+      "source": "supabase/migrations/20261112150000_create_private_messaging.sql",
+      "outcome": "migrate",
+      "status": "pending",
+      "next_action": "Preserve migration file; enable Lovable Cloud or connect database if user wants to migrate records to Lovable Cloud."
+    },
+    {
+      "capability": "records",
+      "source": "external_db",
+      "outcome": "migrate",
+      "status": "pending",
+      "next_action": "Request CSV/JSON exports after preview if migrating existing records to Lovable Cloud."
+    },
+    {
+      "capability": "auth_identities",
+      "source": "supabase_and_firebase",
+      "outcome": "migrate",
+      "status": "pending",
+      "next_action": "Request user exports after preview if migrating existing user accounts to Lovable Cloud."
+    },
+    {
+      "capability": "verification",
+      "source": "runtime",
+      "outcome": "verify",
+      "status": "pending",
+      "next_action": "Verify build-errors.log, test suite, and live preview rendering."
+    }
+  ]
+}
