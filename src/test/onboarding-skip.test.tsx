@@ -12,7 +12,7 @@ vi.mock("@tanstack/react-router", () => ({
 
 import { Route } from "@/routes/onboarding";
 
-const OnboardingRoute = Route.component as React.ComponentType;
+const OnboardingRoute = (Route as unknown as { component: React.ComponentType }).component;
 
 describe("onboarding — bouton Ignorer", () => {
   beforeEach(() => {
