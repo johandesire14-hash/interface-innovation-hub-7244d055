@@ -7,6 +7,7 @@ interface HeaderProps {
   onOpenMarketplace: () => void;
   onOpenDocs: () => void;
   onOpenLogin: () => void;
+  onOpenCreateStore: () => void;
   minimal?: boolean;
 }
 
@@ -14,6 +15,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenMarketplace,
   onOpenDocs,
   onOpenLogin,
+  onOpenCreateStore,
   minimal = false,
 }) => (
   <header className="afhub-site-header sticky top-3 z-30 w-full px-3 sm:top-5 sm:px-6">
@@ -50,7 +52,7 @@ export const Header: React.FC<HeaderProps> = ({
       </nav>
       <Button
         variant="default"
-        onClick={onOpenLogin}
+        onClick={onOpenCreateStore}
         className="h-10 gap-1.5 rounded-full px-4 text-xs"
       >
         Créer ma boutique

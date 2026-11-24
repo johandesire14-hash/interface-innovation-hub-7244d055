@@ -42,6 +42,7 @@ export default function LandingPage() {
         }
         onOpenDocs={() => window.open("/documentation", "_blank")}
         onOpenLogin={openLogin}
+        onOpenCreateStore={() => openStudio()}
       />
       <main className="flex-1 flex flex-col w-full" aria-label="Accueil afhub">
         <HeroSection onOpenStudio={openStudio} lang="fr" />

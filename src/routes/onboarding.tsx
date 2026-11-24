@@ -94,7 +94,7 @@ function OnboardingRoute() {
         <span className="text-xs font-medium text-[#9ba3aa]">Étape {step} / 2</span>
       </header>
 
-      <main className="flex-1 flex items-center justify-center px-4 sm:px-6 py-10">
+      <main className="flex-1 flex items-center justify-center px-4 sm:px-6 pt-10 pb-44">
         <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-[#15181b] p-6 sm:p-8 shadow-2xl">
           <div className="mb-6 flex gap-2" aria-hidden="true">
             <div className="h-1.5 flex-1 rounded-full bg-[#3ddc84]" />
