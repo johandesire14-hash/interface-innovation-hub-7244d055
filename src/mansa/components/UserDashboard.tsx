@@ -4187,6 +4187,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
                     priceDisplay: p.priceDisplay || formatCurrency(p.priceAmount, currency),
                     subscribersCount: p.activeUsers || 0,
                   }))}
+                  onBackToDashboard={() => switchTab("accueil")}
                 />
               ))}
 
@@ -4207,6 +4208,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
                     priceDisplay: p.priceDisplay || formatCurrency(p.priceAmount, currency),
                     subscribersCount: p.activeUsers || 0,
                   }))}
+                  onBackToDashboard={() => switchTab("accueil")}
                 />
               ))}
 

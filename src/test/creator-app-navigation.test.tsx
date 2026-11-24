@@ -152,6 +152,28 @@ describe("navigation catalogue Apps Store vers les workspaces créateur", () => 
     expect(onOpenFilesWorkflow).not.toHaveBeenCalled();
   });
 
+  it.each(["telegram", "discord"] as const)(
+    "ramène %s à l'accueil du tableau de bord comme Fichiers et Cours",
+    (app) => {
+      const onBackToDashboard = vi.fn();
+      render(
+        <ConnectedAppsView
+          lang="fr"
+          initialSubView={app}
+          availableProducts={products}
+          onBackToDashboard={onBackToDashboard}
+        />,
+      );
+
+      const backButton = screen.getByRole("button", { name: "Retour à l'accueil" });
+      expect(
+        screen.queryByRole("button", { name: "Retour aux applications" }),
+      ).not.toBeInTheDocument();
+      fireEvent.click(backButton);
+      expect(onBackToDashboard).toHaveBeenCalledOnce();
+    },
+  );
+
   it("revient du formulaire Fichiers à l'accueil via le callback parent", () => {
     const onBack = vi.fn();
     render(
