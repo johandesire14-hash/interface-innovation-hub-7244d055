@@ -90,6 +90,19 @@ describe("AffiliatesView", () => {
     expect(getAffiliateEligibleProductsMock).not.toHaveBeenCalledWith("Nom à ne pas utiliser");
   });
 
+  it("closes invitation history on outside click but not on a click inside the panel", async () => {
+    render(<AffiliatesView />);
+    fireEvent.click(await screen.findByRole("button", { name: "Historique des invitations" }));
+
+    const dialog = screen.getByRole("dialog");
+    expect(dialog).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("heading", { name: "Historique des invitations" }));
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+
+    fireEvent.click(dialog);
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
   it("shows a distinct empty-catalog explanation and retries loading when requested", async () => {
     getAffiliateEligibleProductsMock.mockResolvedValue([]);
     render(<AffiliatesView />);

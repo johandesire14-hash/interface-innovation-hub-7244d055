@@ -539,6 +539,9 @@ export const AffiliatesView: React.FC<AffiliatesViewProps> = ({ currency = "XOF"
       </section>
       {showInvitationHistory && (
         <div
+          onClick={(event) => {
+            if (event.target === event.currentTarget) setShowInvitationHistory(false);
+          }}
           className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-0 backdrop-blur-sm sm:items-center sm:p-4"
           role="dialog"
           aria-modal="true"
