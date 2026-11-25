@@ -310,8 +310,10 @@ html:not(.dark) .mansa-palette:not(:has(.afhub-home)) h3 + p {
     background-color 160ms ease,
     box-shadow 160ms ease;
 }
-.adaptive-density__option:hover {
-  color: oklch(0.96 0 0);
+@media (hover: hover) {
+  .adaptive-density__option:hover {
+    color: oklch(0.96 0 0);
+  }
 }
 .adaptive-density__option.is-active {
   color: oklch(0.1 0 0);

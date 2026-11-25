@@ -187,8 +187,10 @@
     transform 150ms ease-out;
 }
 
-.ui-btn-primary:hover {
+@media (hover: hover) {
+  .ui-btn-primary:hover {
   background-color: var(--ui-action-primary-hover) !important;
+  }
 }
 
 .ui-btn-secondary {
@@ -205,9 +207,11 @@
     transform 150ms ease;
 }
 
-.ui-btn-secondary:hover {
+@media (hover: hover) {
+  .ui-btn-secondary:hover {
   background-color: var(--ui-action-primary-hover) !important;
   border-color: var(--ui-action-primary-hover);
+  }
 }
 
 .ui-btn-outline {
@@ -219,10 +223,12 @@
   justify-content: center;
 }
 
-.ui-btn-outline:hover {
+@media (hover: hover) {
+  .ui-btn-outline:hover {
   background: rgba(255, 255, 255, 0.06) !important;
   border-color: rgba(255, 255, 255, 0.3);
   color: #ffffff !important;
+  }
 }
 
 .ui-btn-ghost {
@@ -234,9 +240,11 @@
   justify-content: center;
 }
 
-.ui-btn-ghost:hover {
+@media (hover: hover) {
+  .ui-btn-ghost:hover {
   background: rgba(255, 255, 255, 0.07) !important;
   color: #ffffff !important;
+  }
 }
 
 .ui-btn-danger {
@@ -248,8 +256,10 @@
   justify-content: center;
 }
 
-.ui-btn-danger:hover {
+@media (hover: hover) {
+  .ui-btn-danger:hover {
   background: var(--ui-action-danger-hover) !important;
+  }
 }
 
 .ui-btn-link {
@@ -261,10 +271,12 @@
   justify-content: center;
 }
 
-.ui-btn-link:hover {
+@media (hover: hover) {
+  .ui-btn-link:hover {
   color: var(--ui-action-primary-hover) !important;
   text-decoration: underline;
   text-underline-offset: 4px;
+  }
 }
 
 .ui-btn-primary:disabled,
@@ -528,11 +540,16 @@ html:not(.dark) .mansa-palette {
   will-change: transform, opacity, filter;
 }
 
-.afhub-hero-carousel:hover .afhub-hero-carousel-track,
 .afhub-hero-carousel:focus-within .afhub-hero-carousel-track,
-.afhub-hero-carousel:hover .afhub-hero-carousel-object,
 .afhub-hero-carousel:focus-within .afhub-hero-carousel-object {
   animation-play-state: paused;
+}
+
+@media (hover: hover) {
+  .afhub-hero-carousel:hover .afhub-hero-carousel-track,
+  .afhub-hero-carousel:hover .afhub-hero-carousel-object {
+    animation-play-state: paused;
+  }
 }
 
 @keyframes afhub-hero-carousel-scroll {
@@ -758,9 +775,11 @@ html:not(.dark) .mansa-login input::placeholder {
   color: var(--mansa-light-muted) !important;
 }
 
-html:not(.dark) .mansa-login a:hover,
-html:not(.dark) .mansa-login button:hover {
-  color: var(--mansa-light-text);
+@media (hover: hover) {
+  html:not(.dark) .mansa-login a:hover,
+  html:not(.dark) .mansa-login button:hover {
+    color: var(--mansa-light-text);
+  }
 }
 
 html:not(.dark) .mansa-palette:not(:has(.afhub-home)) svg {
@@ -883,8 +902,10 @@ html:not(.dark) .mansa-support-inbox [class*="text-blue-400"] {
   color: #008f46 !important;
 }
 
-html:not(.dark) .mansa-support-inbox button:hover {
-  background-color: rgba(15, 23, 42, 0.06);
+@media (hover: hover) {
+  html:not(.dark) .mansa-support-inbox button:hover {
+    background-color: rgba(15, 23, 42, 0.06);
+  }
 }
 
 /* Light mode CTAs must remain visually prominent against white surfaces. */
@@ -902,17 +923,19 @@ html:not(.dark) .mansa-palette:not(:has(.afhub-home)) button[class*="bg-[#0055ff
   box-shadow: 0 2px 8px rgba(0, 166, 83, 0.24) !important;
 }
 
-html:not(.dark) .mansa-palette:not(:has(.afhub-home)) .ui-btn-primary:hover,
-html:not(.dark) .mansa-palette:not(:has(.afhub-home)) .ui-btn-secondary:hover,
-html:not(.dark) .mansa-palette:not(:has(.afhub-home)) button[class*="bg-emerald-"]:hover,
-html:not(.dark) .mansa-palette:not(:has(.afhub-home)) button[class*="bg-blue-"]:hover,
-html:not(.dark) .mansa-palette:not(:has(.afhub-home)) button[class*="bg-purple-"]:hover,
-html:not(.dark) .mansa-palette:not(:has(.afhub-home)) button[class*="bg-[#00D26A"]:hover,
-html:not(.dark) .mansa-palette:not(:has(.afhub-home)) button[class*="bg-[#3ddc84"]:hover,
-html:not(.dark) .mansa-palette:not(:has(.afhub-home)) button[class*="bg-[#0055ff"]:hover {
-  background-color: #00b85c !important;
-  border-color: #008f46 !important;
-  color: #000000 !important;
+@media (hover: hover) {
+  html:not(.dark) .mansa-palette:not(:has(.afhub-home)) .ui-btn-primary:hover,
+  html:not(.dark) .mansa-palette:not(:has(.afhub-home)) .ui-btn-secondary:hover,
+  html:not(.dark) .mansa-palette:not(:has(.afhub-home)) button[class*="bg-emerald-"]:hover,
+  html:not(.dark) .mansa-palette:not(:has(.afhub-home)) button[class*="bg-blue-"]:hover,
+  html:not(.dark) .mansa-palette:not(:has(.afhub-home)) button[class*="bg-purple-"]:hover,
+  html:not(.dark) .mansa-palette:not(:has(.afhub-home)) button[class*="bg-[#00D26A"]:hover,
+  html:not(.dark) .mansa-palette:not(:has(.afhub-home)) button[class*="bg-[#3ddc84"]:hover,
+  html:not(.dark) .mansa-palette:not(:has(.afhub-home)) button[class*="bg-[#0055ff"]:hover {
+    background-color: #00b85c !important;
+    border-color: #008f46 !important;
+    color: #000000 !important;
+  }
 }
 
 /* Light mode heading rule: titles and subtitles are always pure black. */
@@ -941,4 +964,99 @@ html:not(.dark) .mansa-palette.mansa-light h1 + p,
 html:not(.dark) .mansa-palette.mansa-light h2 + p,
 html:not(.dark) .mansa-palette.mansa-light h3 + p {
   color: #000000 !important;
+}
+
+/* Site-wide mobile ergonomics and resilient typography. The root document declares lang="fr". */
+@layer base {
+  :where(h1) {
+    font-size: clamp(1.75rem, 4vw + 0.8rem, 3.25rem);
+    line-height: 1.12;
+  }
+
+  :where(h2) {
+    font-size: clamp(1.35rem, 2.5vw + 0.75rem, 2.25rem);
+    line-height: 1.2;
+  }
+
+  :where(a, button, [role="button"], input, textarea, select, summary) {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  :where(a, button, [role="button"], input, textarea, select):focus-visible {
+    outline: 2px solid var(--ui-action-focus) !important;
+    outline-offset: 2px;
+  }
+
+  :where(a) {
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: from-font;
+  }
+
+  :where(sup) {
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+    top: -0.55em;
+  }
+
+  :where(abbr[title]) {
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.02em;
+  }
+
+  :where([role="dialog"], [data-vaul-drawer]) {
+    overscroll-behavior: contain;
+  }
+
+  :where(
+      [role="dialog"] [class*="overflow-y-auto"],
+      [role="dialog"] [class*="overflow-auto"],
+      [data-vaul-drawer] [class*="overflow-y-auto"],
+      [data-vaul-drawer] [class*="overflow-auto"]
+    ) {
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  :where(.mansa-snap-x) {
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  :where(.mansa-snap-x > *) {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  :where(.mansa-dashboard article h3, .mansa-palette article h3) {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    hyphens: auto;
+  }
+
+  :where(.mansa-dashboard article p, .mansa-palette article p, [data-prose]) {
+    hyphens: auto;
+  }
+
+  @media (max-width: 767px) {
+    :where(
+        input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+        textarea,
+        select
+      ) {
+      font-size: 16px !important;
+    }
+  }
+
+  @supports (text-box-trim: trim-both) {
+    :where(.ui-btn-primary, .ui-btn-secondary, .ui-btn-outline, .ui-btn-ghost, .ui-btn-danger, .ui-btn-link) {
+      text-box-trim: trim-both;
+      text-box-edge: cap alphabetic;
+    }
+  }
 }

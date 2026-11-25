@@ -4045,6 +4045,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
                                 onChange={(event) => setNewChatInput(event.target.value)}
                                 rows={2}
                                 placeholder="Écrire un message…"
+                                enterKeyHint="send"
                                 className="min-w-0 flex-1 resize-none rounded-xl border border-white/10 bg-[#101114] p-3 text-xs text-white outline-none focus:border-emerald-400"
                               />
                               <button

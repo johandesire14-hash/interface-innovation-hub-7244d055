@@ -396,10 +396,30 @@ export const AffiliatesView: React.FC<AffiliatesViewProps> = ({ currency = "XOF"
             Chargement des produits…
           </p>
         ) : !loadError && products.length === 0 ? (
-          <p className="rounded-xl border border-white/10 bg-white/[0.03] p-5 text-sm leading-relaxed text-zinc-400">
-            Aucun produit actif avec un programme d’affiliation n’est disponible. Les produits dont
-            le taux est nul, absent ou négatif, ainsi que vos propres produits, ne sont pas proposés.
-          </p>
+          <div className="rounded-xl border border-white/10 bg-white/[0.03] p-5 sm:p-6">
+            <div className="mx-auto max-w-lg text-center">
+              <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-emerald-400/10 text-emerald-300">
+                <Link2 className="size-5" />
+              </div>
+              <h3 className="mt-3 font-semibold text-zinc-100">
+                Aucun programme d’affiliation disponible
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                Le catalogue ne contient actuellement aucun produit actif proposé par un autre
+                créateur avec un taux d’affiliation valide. Revenez plus tard ou actualisez pour
+                vérifier les nouveaux programmes.
+              </p>
+              <button
+                type="button"
+                onClick={() => void refresh(true)}
+                disabled={refreshing || loading}
+                className="mt-4 inline-flex items-center gap-2 rounded-lg border border-white/10 px-4 py-2 text-sm font-semibold text-zinc-200 hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <RefreshCw className={`size-4 ${refreshing ? "animate-spin" : ""}`} />
+                {refreshing ? "Chargement…" : "Réessayer le chargement"}
+              </button>
+            </div>
+          </div>
         ) : (
           <div className="grid gap-3 lg:grid-cols-2">
             {products.map((product) => {

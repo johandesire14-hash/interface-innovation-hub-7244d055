@@ -347,7 +347,7 @@ export const CustomerPurchasesView: React.FC<CustomerPurchasesViewProps> = ({
                   </div>
 
                   {/* App Nav Pills */}
-                  <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#16181f] border border-white/5 self-start sm:self-auto overflow-x-auto max-w-full">
+                  <div className="mansa-snap-x flex items-center gap-1.5 p-1 rounded-xl bg-[#16181f] border border-white/5 self-start sm:self-auto overflow-x-auto max-w-full">
                     {selectedPurchase.hasAudioPreview && (
                       <button
                         onClick={() => setActiveSubApp("audio")}

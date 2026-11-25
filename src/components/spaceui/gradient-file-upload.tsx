@@ -711,6 +711,9 @@ export function GradientFileUpload({
   const typeInfo = React.useMemo(() => getFileTypeInfo(upload.file), [upload.file]);
   const Icon = typeInfo.icon;
   const colorVariant: ColorVariant = upload.resultState === "error" ? "sunset" : "ocean";
+  const fileName = upload.file?.name ?? "Select a file";
+  const fileExtensionStart = fileName.lastIndexOf(".");
+  const hasVisibleExtension = fileExtensionStart > 0 && fileExtensionStart < fileName.length - 1;
 
   const roundedProgress = Math.round(upload.progress);
   const uploadedBytes = upload.file ? Math.round((upload.file.size * upload.progress) / 100) : 0;
@@ -854,8 +857,17 @@ export function GradientFileUpload({
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.18, ease: "easeOut" }}
               >
-                <p className="truncate text-sm font-semibold leading-tight mt-1 text-foreground">
-                  {upload.file?.name ?? "Select a file"}
+                <p
+                  className="mt-1 flex min-w-0 text-sm font-semibold leading-tight text-foreground"
+                  title={fileName}
+                  aria-label={fileName}
+                >
+                  <span className="min-w-0 truncate">
+                    {hasVisibleExtension ? fileName.slice(0, fileExtensionStart) : fileName}
+                  </span>
+                  {hasVisibleExtension && (
+                    <span className="shrink-0">{fileName.slice(fileExtensionStart)}</span>
+                  )}
                 </p>
                 <div className="mt-1 flex min-w-0 flex-wrap items-center gap-x-1.5 gap-y-1 text-xs text-muted-foreground">
                   <span className="font-medium tabular-nums">{upload.message ?? statusLabel}</span>

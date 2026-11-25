@@ -548,7 +548,7 @@ Document généré électroniquement, faisant foi de bordereau officiel de règl
       <ContextualLocationPrompt currentCurrency={activeCurrency} className="my-1" />
 
       {/* 4 Navigation Subtabs */}
-      <div className="flex items-center gap-1 border-b border-white/[0.08] overflow-x-auto no-scrollbar pb-px">
+      <div className="mansa-snap-x flex items-center gap-1 border-b border-white/[0.08] overflow-x-auto no-scrollbar pb-px">
         <button
           onClick={() => setActiveTab("overview")}
           className={`flex items-center gap-2 px-4 py-3 text-xs font-bold border-b-2 transition-all whitespace-nowrap cursor-pointer ${

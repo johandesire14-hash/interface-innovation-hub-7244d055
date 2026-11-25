@@ -90,6 +90,22 @@ describe("AffiliatesView", () => {
     expect(getAffiliateEligibleProductsMock).not.toHaveBeenCalledWith("Nom à ne pas utiliser");
   });
 
+  it("shows a distinct empty-catalog explanation and retries loading when requested", async () => {
+    getAffiliateEligibleProductsMock.mockResolvedValue([]);
+    render(<AffiliatesView />);
+
+    expect(
+      await screen.findByRole("heading", { name: "Aucun programme d’affiliation disponible" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/aucun produit actif proposé par un autre créateur avec un taux d’affiliation valide/i),
+    ).toBeInTheDocument();
+    expect(getAffiliateEligibleProductsMock).toHaveBeenCalledTimes(1);
+
+    fireEvent.click(screen.getByRole("button", { name: "Réessayer le chargement" }));
+    await waitFor(() => expect(getAffiliateEligibleProductsMock).toHaveBeenCalledTimes(2));
+  });
+
   it("shows the clipboard failure instead of claiming the link was copied", async () => {
     getAffiliateLinksForUserMock.mockResolvedValue([
       {
