@@ -1559,6 +1559,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
     app: "courses" | "files";
     companyId: string;
     productIds: string[];
+    returnToMemberSpace?: boolean;
   } | null>(null);
   const [creatorAppsLoadAttempt, setCreatorAppsLoadAttempt] = useState(0);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
@@ -2034,7 +2035,12 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
                   company.id === currentCommunitySub.id,
               );
               if (!creatorCompany) return;
-              setCreatorAppWorkflow({ app, companyId: creatorCompany.id, productIds });
+              setCreatorAppWorkflow({
+                app,
+                companyId: creatorCompany.id,
+                productIds,
+                returnToMemberSpace: true,
+              });
               setActiveWorkspaceId(creatorCompany.id);
               setActiveNav("applications");
             }}
@@ -4131,7 +4137,14 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
                         productIds={creatorAppWorkflow.productIds}
                         products={contextProducts}
                         onBack={() => {
+                          const shouldReturnToMemberSpace = Boolean(
+                            creatorAppWorkflow.returnToMemberSpace,
+                          );
                           setCreatorAppWorkflow(null);
+                          if (shouldReturnToMemberSpace) {
+                            handleOpenCompanyCommunity(activeCompany);
+                            return;
+                          }
                           switchTab("accueil");
                         }}
                       />
@@ -4143,7 +4156,14 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
                         productIds={creatorAppWorkflow.productIds}
                         products={contextProducts}
                         onBack={() => {
+                          const shouldReturnToMemberSpace = Boolean(
+                            creatorAppWorkflow.returnToMemberSpace,
+                          );
                           setCreatorAppWorkflow(null);
+                          if (shouldReturnToMemberSpace) {
+                            handleOpenCompanyCommunity(activeCompany);
+                            return;
+                          }
                           switchTab("accueil");
                         }}
                       />
