@@ -113,3 +113,87 @@ describe("bouton retour des écrans Telegram et Discord", () => {
     expect(screen.queryByRole("button", { name: "Retour à l'accueil" })).not.toBeInTheDocument();
   });
 });
+
+describe("Fichiers et Cours dans l’espace membre", () => {
+  beforeEach(() => {
+    localStorage.clear();
+    fetchPublicCreatorProfileIdentityMock.mockResolvedValue({
+      uid: "creator-back-btn",
+      displayName: "Awa Bah",
+      handle: "awa-bah",
+    });
+    subscribeToCompanyOffersMock.mockImplementation((_companyId, callback) => {
+      callback([
+        {
+          id: "offer-back-btn",
+          title: "Produit test",
+          companyId: "company-back-btn",
+          companyName: "Communauté test",
+          category: "community",
+          priceDisplay: "Gratuit",
+          priceAmount: 0,
+          currency: "XOF",
+          pricingType: "free",
+          billingCycle: "one_time",
+          includedApps: ["Telegram", "Fichiers", "Cours"],
+        },
+      ]);
+      return () => {};
+    });
+  });
+
+  afterEach(() => {
+    cleanup();
+    localStorage.clear();
+  });
+
+  it.each([
+    ["Fichiers", "files"],
+    ["Courses", "courses"],
+  ])("%s s’ouvre dans l’espace membre et revient au même endroit que Telegram", async (label, app) => {
+    const onOpenCreatorAppWorkspace = vi.fn();
+    const renderCreatorAppWorkspace = vi.fn((openedApp: string, _ids: string[], onBack: () => void) => (
+      <div data-testid={`workspace-${openedApp}`}>
+        <button type="button" onClick={onBack}>
+          Retour à l'accueil
+        </button>
+      </div>
+    ));
+    const { container } = render(
+      <EnterpriseMemberView
+        lang="fr"
+        user={{ uid: "creator-back-btn", name: "Awa Bah", email: "creator@example.test" }}
+        onOpenCreatorAppWorkspace={onOpenCreatorAppWorkspace}
+        renderCreatorAppWorkspace={renderCreatorAppWorkspace}
+        subscription={
+          {
+            id: "sub-back-btn",
+            companyId: "company-back-btn",
+            creatorId: "creator-back-btn",
+            companyName: "Communauté test",
+            productName: "Produit test",
+            priceDisplay: "Gratuit",
+            status: "active",
+            hasJoined: true,
+            includedApps: ["dashboard", "support", "Telegram", "Fichiers", "Cours"],
+            telegramChannels: [],
+          } as any
+        }
+      />,
+    );
+    await screen.findByText("@awa-bah");
+
+    // Référence : la page atteinte par le retour de Telegram.
+    fireEvent.click(screen.getByRole("button", { name: "Telegram" }));
+    fireEvent.click(screen.getByRole("button", { name: "Retour à l'accueil" }));
+    const telegramHome = container.innerHTML;
+
+    fireEvent.click(screen.getByRole("button", { name: label }));
+    expect(screen.getByTestId(`workspace-${app}`)).toBeInTheDocument();
+    expect(onOpenCreatorAppWorkspace).not.toHaveBeenCalled();
+
+    fireEvent.click(screen.getByRole("button", { name: "Retour à l'accueil" }));
+    expect(screen.queryByTestId(`workspace-${app}`)).not.toBeInTheDocument();
+    expect(container.innerHTML).toBe(telegramHome);
+  });
+});

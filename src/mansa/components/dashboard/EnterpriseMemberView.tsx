@@ -161,6 +161,11 @@ interface EnterpriseMemberViewProps {
   onCreateProduct?: () => void;
   onOpenCreatorApplications?: () => void;
   onOpenCreatorAppWorkspace?: (app: "courses" | "files", productIds: string[]) => void;
+  renderCreatorAppWorkspace?: (
+    app: "courses" | "files",
+    productIds: string[],
+    onBack: () => void,
+  ) => React.ReactNode;
   onCheckoutOpenChange?: (open: boolean) => void;
 }
 
@@ -179,12 +184,25 @@ export const EnterpriseMemberView: React.FC<EnterpriseMemberViewProps> = ({
   onCreateProduct,
   onOpenCreatorApplications,
   onOpenCreatorAppWorkspace,
+  renderCreatorAppWorkspace,
   onCheckoutOpenChange,
 }) => {
   // Navigation inside the enterprise hub - defaults to "accueil" for company home view
   const [activeTab, setActiveTab] = useState<
-    "accueil" | "support" | "applications" | "telegram" | "discord"
+    "accueil" | "support" | "applications" | "telegram" | "discord" | "creator_app"
   >("accueil");
+  const [creatorAppView, setCreatorAppView] = useState<{
+    app: "courses" | "files";
+    productIds: string[];
+  } | null>(null);
+  const openCreatorApp = (app: "courses" | "files", productIds: string[]) => {
+    if (renderCreatorAppWorkspace) {
+      setCreatorAppView({ app, productIds });
+      setActiveTab("creator_app");
+      return;
+    }
+    onOpenCreatorAppWorkspace?.(app, productIds);
+  };
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isMobileCompanyNavOpen, setIsMobileCompanyNavOpen] = useState(false);
 
@@ -1222,9 +1240,13 @@ export const EnterpriseMemberView: React.FC<EnterpriseMemberViewProps> = ({
       setCompanyTab("accueil");
       return;
     }
-    if ((app === "courses" || app === "files") && canManageCompany && onOpenCreatorAppWorkspace) {
+    if (
+      (app === "courses" || app === "files") &&
+      canManageCompany &&
+      (renderCreatorAppWorkspace || onOpenCreatorAppWorkspace)
+    ) {
       const productIds = getCreatorAppProductIds(app, enterpriseOffers, selectedPreviewOfferId);
-      onOpenCreatorAppWorkspace(app, productIds);
+      openCreatorApp(app, productIds);
       return;
     }
     const keywords =
@@ -2560,7 +2582,10 @@ export const EnterpriseMemberView: React.FC<EnterpriseMemberViewProps> = ({
             const isActive =
               (app === "telegram" && activeTab === "telegram") ||
               (app === "discord" && activeTab === "discord") ||
-              (app === "chat" && activeTab === "support");
+              (app === "chat" && activeTab === "support") ||
+              ((app === "files" || app === "courses") &&
+                activeTab === "creator_app" &&
+                creatorAppView?.app === app);
             return (
               <button
                 key={`configured-app-${app}`}
@@ -3519,6 +3544,18 @@ export const EnterpriseMemberView: React.FC<EnterpriseMemberViewProps> = ({
           />
         )}
 
+        {/* VIEW: CREATOR FILES / COURSES (same placement as Telegram)     */}
+        {activeTab === "creator_app" && creatorAppView && renderCreatorAppWorkspace && (
+          <div className="flex-1 flex flex-col h-full bg-[#0a0b0e] overflow-y-auto">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+              {renderCreatorAppWorkspace(creatorAppView.app, creatorAppView.productIds, () => {
+                setCreatorAppView(null);
+                handleConnectedAppBack();
+              })}
+            </div>
+          </div>
+        )}
+
         {/* VIEW 3: TELEGRAM CONNECTED APP & CHANNELS                     */}
         {/* ============================================================ */}
         {activeTab === "telegram" && (
@@ -3644,13 +3681,13 @@ export const EnterpriseMemberView: React.FC<EnterpriseMemberViewProps> = ({
                   subscribersCount: offer.subscribersCount || 0,
                 }))}
                 onOpenCoursesWorkflow={(productIds) => {
-                  onOpenCreatorAppWorkspace?.(
+                  openCreatorApp(
                     "courses",
                     productIds.length > 0 ? productIds : selectedPreviewOfferId ? [selectedPreviewOfferId] : [],
                   );
                 }}
                 onOpenFilesWorkflow={(productIds) => {
-                  onOpenCreatorAppWorkspace?.(
+                  openCreatorApp(
                     "files",
                     productIds.length > 0 ? productIds : selectedPreviewOfferId ? [selectedPreviewOfferId] : [],
                   );

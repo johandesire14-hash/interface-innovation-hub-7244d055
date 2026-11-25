@@ -486,13 +486,15 @@ export const CreatorCoursesWorkspace: React.FC<{
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-zinc-300 transition-colors hover:text-white"
+            className="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors cursor-pointer group"
           >
-            <ChevronLeft className="size-5" /> Retour à l'accueil
+            <div className="p-1 rounded-lg hover:bg-white/5 text-zinc-400 group-hover:text-white">
+              <ChevronLeft className="size-5" />
+            </div>
+            <span className="text-sm font-semibold text-zinc-300 group-hover:text-white">
+              Retour à l'accueil
+            </span>
           </button>
-          <span className="rounded-lg bg-purple-500/10 px-3 py-1.5 text-[11px] font-semibold text-purple-300">
-            Cours
-          </span>
         </div>
         <div className="flex items-center justify-between border-b border-white/10 pb-4">
           <div>
@@ -726,6 +728,20 @@ export const CreatorCoursesWorkspace: React.FC<{
 
   return (
     <div className="min-h-full space-y-5">
+      <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
+        <button
+          type="button"
+          onClick={onBack}
+          className="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors cursor-pointer group"
+        >
+          <div className="p-1 rounded-lg hover:bg-white/5 text-zinc-400 group-hover:text-white">
+            <ChevronLeft className="size-5" />
+          </div>
+          <span className="text-sm font-semibold text-zinc-300 group-hover:text-white">
+            Retour à l'accueil
+          </span>
+        </button>
+      </div>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <div className="text-[10px] font-semibold uppercase tracking-wider text-purple-400">
@@ -736,12 +752,6 @@ export const CreatorCoursesWorkspace: React.FC<{
             Créez et organisez les cours liés à vos offres.
           </p>
         </div>
-        <button
-          onClick={onBack}
-          className="rounded-lg border border-white/10 px-3 py-2 text-xs text-zinc-300"
-        >
-          Retour à l'accueil
-        </button>
       </div>
       {isLoadingCourses ? (
         <p className="text-sm text-zinc-400">Chargement des cours…</p>
@@ -2043,6 +2053,48 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
               });
               setActiveWorkspaceId(creatorCompany.id);
               setActiveNav("applications");
+            }}
+            renderCreatorAppWorkspace={(app, productIds, onBack) => {
+              const creatorCompany = companies.find(
+                (company) =>
+                  company.id === currentCommunitySub.companyId ||
+                  company.id === currentCommunitySub.id,
+              );
+              if (!creatorCompany) return null;
+              const creatorKey = user?.uid || user?.email || "local-user";
+              const companyProducts = filterByCompanyId(productsList, creatorCompany.id);
+              return (
+                <React.Suspense
+                  fallback={
+                    <div
+                      className="rounded-2xl border border-white/10 bg-[#0c0d0e] p-8 text-center text-sm text-zinc-300"
+                      role="status"
+                    >
+                      Chargement de l’application…
+                    </div>
+                  }
+                >
+                  {app === "courses" ? (
+                    <CreatorCoursesWorkspace
+                      key={`${creatorCompany.id}-member-courses`}
+                      creatorId={creatorKey}
+                      companyId={creatorCompany.id}
+                      productIds={productIds}
+                      products={companyProducts}
+                      onBack={onBack}
+                    />
+                  ) : (
+                    <FilesWorkspace
+                      key={`${creatorCompany.id}-member-files`}
+                      creatorId={creatorKey}
+                      companyId={creatorCompany.id}
+                      productIds={productIds}
+                      products={companyProducts}
+                      onBack={onBack}
+                    />
+                  )}
+                </React.Suspense>
+              );
             }}
           />
         </div>
