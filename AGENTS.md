@@ -28,3 +28,5 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- When legacy Firestore is absent, affiliate catalog reads use the existing offers client and only explicit commission metadata; this avoids configuration crashes and invented programs. Affiliate links must not be fabricated before a persistent link store is connected.

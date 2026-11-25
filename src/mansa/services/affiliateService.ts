@@ -9,6 +9,7 @@ import {
   where,
 } from "./firebase";
 import { db } from "./firebase";
+import { supabase } from "./supabase";
 
 export interface AffiliateProduct {
   id: string;
@@ -100,6 +101,30 @@ export async function getAffiliateEligibleProducts(
   affiliateUid: string,
 ): Promise<AffiliateProduct[]> {
   if (!affiliateUid) return [];
+  if (!db) {
+    // The imported app stores its current catalog in offers, not Firestore products.
+    // Do not manufacture a commission for offers with no configured program.
+    const { data, error } = await supabase
+      .from("offers")
+      .select("id,creator_id,name,title,description,status,price_amount,currency,image_url,metadata")
+      .eq("status", "active")
+      .neq("creator_id", affiliateUid);
+    if (error) throw error;
+    return (data ?? []).flatMap((row) => {
+      const metadata = row.metadata && typeof row.metadata === "object" ? row.metadata : {};
+      const product = mapProduct(row.id, {
+        ...metadata,
+        creatorId: row.creator_id,
+        name: row.title || row.name,
+        description: row.description,
+        status: row.status,
+        pricingAmount: row.price_amount,
+        currency: row.currency,
+        coverImage: row.image_url,
+      });
+      return product ? [product] : [];
+    });
+  }
   const firestore = requireFirestore();
   try {
     const productsSnapshot = await getDocs(
@@ -148,6 +173,9 @@ export async function createOrGetAffiliateLink(
   product: Pick<AffiliateProduct, "id" | "affiliateCommissionRate">,
 ): Promise<AffiliateLink> {
   if (!affiliateUid) throw new Error("Une session utilisateur est requise.");
+  if (!db) {
+    throw new Error("La création de liens affiliés n’est pas encore disponible pour ces offres.");
+  }
   const firestore = requireFirestore();
   try {
     const linkId = await affiliateProductDocumentId(affiliateUid, product.id);
@@ -312,6 +340,8 @@ export async function createOrGetAffiliateLink(
 
 export async function getAffiliateLinksForUser(affiliateUid: string): Promise<AffiliateLink[]> {
   if (!affiliateUid) return [];
+  // This installation has no affiliate link store yet. No local or fake links are created.
+  if (!db) return [];
   const firestore = requireFirestore();
   try {
     const linksSnapshot = await getDocs(
@@ -339,6 +369,7 @@ export async function resolvePublicAffiliateCode(
   code: string,
 ): Promise<PublicAffiliateProduct | null> {
   if (!/^[A-Za-z0-9_-]{32}$/.test(code)) return null;
+  if (!db) return null;
   const firestore = requireFirestore();
   try {
     // This is the only affiliate document readable without authentication. It contains
