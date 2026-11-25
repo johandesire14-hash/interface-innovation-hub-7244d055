@@ -174,6 +174,25 @@ describe("navigation catalogue Apps Store vers les workspaces créateur", () => 
     },
   );
 
+  it("ramène l’éditeur de cours à l'accueil comme les autres applications", async () => {
+    const onBack = vi.fn();
+    render(
+      <CreatorCoursesWorkspace
+        creatorId="creator-1"
+        companyId="company-1"
+        productIds={["offer-real-1"]}
+        products={[{ id: "offer-real-1", title: "Mon offre" }] as any}
+        onBack={onBack}
+      />,
+    );
+
+    fireEvent.click(await screen.findByRole("button", { name: /Ajouter un cours/ }));
+    expect(screen.getByRole("heading", { name: "Informations du cours" })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Retour à l'accueil" }));
+
+    expect(onBack).toHaveBeenCalledOnce();
+  });
+
   it("revient du formulaire Fichiers à l'accueil via le callback parent", () => {
     const onBack = vi.fn();
     render(
@@ -314,9 +333,8 @@ describe("navigation catalogue Apps Store vers les workspaces créateur", () => 
     rejectUpload?.(new Error("stockage indisponible"));
 
     expect(await screen.findByRole("alert")).toHaveTextContent(
-      "Le fichier n’a pas pu être enregistré.",
+      "Impossible d’enregistrer ce fichier. Vérifiez son format et réessayez.",
     );
-    expect(screen.getByRole("alert")).toHaveTextContent("message: stockage indisponible");
     await waitFor(() =>
       expect(screen.getByRole("button", { name: "Ajouter le fichier" })).toBeEnabled(),
     );

@@ -482,6 +482,18 @@ export const CreatorCoursesWorkspace: React.FC<{
   if (editing) {
     return (
       <div className="min-h-full space-y-5 rounded-2xl border border-white/10 bg-[#0c0d0e] p-5">
+        <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
+          <button
+            type="button"
+            onClick={onBack}
+            className="inline-flex items-center gap-2 text-sm font-semibold text-zinc-300 transition-colors hover:text-white"
+          >
+            <ChevronLeft className="size-5" /> Retour à l'accueil
+          </button>
+          <span className="rounded-lg bg-purple-500/10 px-3 py-1.5 text-[11px] font-semibold text-purple-300">
+            Cours
+          </span>
+        </div>
         <div className="flex items-center justify-between border-b border-white/10 pb-4">
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-wider text-purple-400">
